@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Contact Us — Navratna Ply and Decor{% endblock %}
+{% block nav_contact %}active{% endblock %}
+
+{% block full_content %}
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a><span>/</span><span>Contact</span>
+    </div>
+    <h1>Get in Touch</h1>
+    <p>We're here to help with product queries, pricing, and advice.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="form-grid">
+
+      <!-- Info -->
+      <div class="form-info">
+        <h2>Let's talk about your project</h2>
+        <p>Whether you're a builder, interior designer, or homeowner — reach out and we'll help you find exactly what you need at the best price.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📞</div>
+          <div class="contact-detail-text">
+            <strong>Phone</strong>
+            <span><a href="tel:+919669818894">+91 96698 18894</a></span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">💬</div>
+          <div class="contact-detail-text">
+            <strong>WhatsApp</strong>
+            <span><a href="https://wa.me/919669818894" target="_blank">Message us directly</a></span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕘</div>
+          <div class="contact-detail-text">
+            <strong>Business Hours</strong>
+            <span>Mon – Sat, 9:00 AM – 7:00 PM</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div class="contact-detail-text">
+            <strong>Visit Us</strong>
+            <span>Your shop address here</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="form-card">
+        <form method="POST" action="/contact/">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="Ramesh Kumar" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+91 00000 00000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us what you're looking for..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold form-submit">Send Message →</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── GOOGLE MAPS ────────────────────────────────────────────── -->
+<section class="map-section">
+  <div class="container">
+    <div class="map-header">
+      <h2 class="section-title">Find Our Shop</h2>
+      <p class="section-sub">Come visit us — we're happy to help you in person.</p>
+    </div>
+  </div>
+
+  <div class="map-wrapper">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3363.9276128421925!2d75.8832556!3d22.721017999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3962fdf575a9945d%3A0xe007d6fb8063f59d!2sNavratna%20ply%26decore!5e1!3m2!1sen!2sin!4v1772775595206!5m2!1sen!2sin"
+      width="100%"
+      height="420"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+{% endblock %}

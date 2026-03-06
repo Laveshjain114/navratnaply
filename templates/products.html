@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}All Products — Navratna Ply and Decor{% endblock %}
+{% block nav_products %}active{% endblock %}
+
+{% block full_content %}
+
+<!-- ── PAGE HERO ─────────────────────────────────────────────── -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a><span>/</span><span>Products</span>
+    </div>
+    <h1>Our Products</h1>
+    <p>Browse our full range of plywood, laminates, veneers and hardware.</p>
+  </div>
+</section>
+
+<!-- ── PRODUCTS PAGE BODY ────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="products-layout">
+
+      <!-- ── SIDEBAR FILTERS ──────────────────────────────────── -->
+      <aside class="filters-sidebar">
+
+        <form method="GET" action="/products/" id="filterForm">
+
+          <!-- Search -->
+          <div class="filter-block">
+            <h4 class="filter-title">Search</h4>
+            <div class="search-input-wrap">
+              <input
+                type="text"
+                name="search"
+                placeholder="Search products…"
+                value="{{ search }}"
+                class="filter-search">
+              <button type="submit" class="search-btn">→</button>
+            </div>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="filter-block">
+            <h4 class="filter-title">Category</h4>
+            <ul class="filter-list">
+              <li>
+                <a href="?{% if selected_brand %}brand={{ selected_brand }}&{% endif %}{% if search %}search={{ search }}{% endif %}"
+                  class="filter-item {% if not selected_category %}filter-item--active{% endif %}">
+                  All Categories
+                </a>
+              </li>
+              {% for cat in categories %}
+              <li>
+                <a href="?category={{ cat.id }}{% if selected_brand %}&brand={{ selected_brand }}{% endif %}{% if search %}&search={{ search }}{% endif %}"
+                  class="filter-item {% if selected_category == cat.id|stringformat:'s' %}filter-item--active{% endif %}">
+                  {{ cat.name }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Brand Filter -->
+          <div class="filter-block">
+            <h4 class="filter-title">Brand</h4>
+            <ul class="filter-list">
+              <li>
+                <a href="?{% if selected_category %}category={{ selected_category }}&{% endif %}{% if search %}search={{ search }}{% endif %}"
+                  class="filter-item {% if not selected_brand %}filter-item--active{% endif %}">
+                  All Brands
+                </a>
+              </li>
+              {% for brand in brands %}
+              <li>
+                <a href="?brand={{ brand.id }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search %}&search={{ search }}{% endif %}"
+                  class="filter-item {% if selected_brand == brand.id|stringformat:'s' %}filter-item--active{% endif %}">
+                  {% if brand.logo %}
+                  <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="brand-logo-sm">
+                  {% endif %}
+                  {{ brand.name }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- Clear Filters -->
+          {% if selected_category or selected_brand or search %}
+          <a href="/products/" class="btn-clear-filters">✕ Clear all filters</a>
+          {% endif %}
+
+        </form>
+      </aside>
+
+      <!-- ── PRODUCT GRID ─────────────────────────────────────── -->
+      <div class="products-main">
+
+        <!-- Results bar -->
+        <div class="results-bar">
+          <span class="results-count">
+            {{ products|length }} product{{ products|length|pluralize }} found
+            {% if search %} for "<strong>{{ search }}</strong>"{% endif %}
+          </span>
+          {% if selected_category or selected_brand %}
+          <div class="active-filters">
+            {% for cat in categories %}
+              {% if selected_category == cat.id|stringformat:'s' %}
+              <span class="active-tag">{{ cat.name }} <a href="?{% if selected_brand %}brand={{ selected_brand }}{% endif %}">✕</a></span>
+              {% endif %}
+            {% endfor %}
+            {% for brand in brands %}
+              {% if selected_brand == brand.id|stringformat:'s' %}
+              <span class="active-tag">{{ brand.name }} <a href="?{% if selected_category %}category={{ selected_category }}{% endif %}">✕</a></span>
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Grid -->
+        <div class="products products-grid">
+          {% for product in products %}
+          <div class="product-card">
+            <div class="product-img-wrap">
+              {% if product.image %}
+              <img src="{{ product.image.url }}" alt="{{ product.name }}">
+              {% else %}
+              <div class="product-img-placeholder">🪵</div>
+              {% endif %}
+              {% if product.brand %}
+              <span class="product-brand-badge">{{ product.brand.name }}</span>
+              {% endif %}
+            </div>
+            <div class="product-info">
+              <h3>{{ product.name }}</h3>
+              <p>{{ product.description|truncatechars:80 }}</p>
+              <div class="product-meta">
+                <span class="product-tag">{{ product.category.name }}</span>
+                <a href="/request-quote/?product={{ product.id }}" class="product-link">Enquire →</a>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <div class="no-results">
+            <div class="no-results-icon">🔍</div>
+            <h3>No products found</h3>
+            <p>Try adjusting your filters or search term.</p>
+            <a href="/products/" class="btn" style="margin-top:16px;">Clear filters</a>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

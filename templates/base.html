@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Navratna Ply and Decor{% endblock %}</title>
+  <meta name="description" content="Premium plywood, laminates and hardware — Navratna Ply and Decor">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<!-- ── NAVBAR ──────────────────────────────────────────────── -->
+<header class="navbar">
+  <div class="container">
+    <a href="/" class="logo">Navratna <span>Ply</span> &amp; Decor</a>
+
+    <ul class="nav-links">
+      <li><a href="/" class="{% block nav_home %}{% endblock %}">Home</a></li>
+      <li><a href="/products/" class="{% block nav_products %}{% endblock %}">Products</a></li>
+      <li><a href="/contact/" class="{% block nav_contact %}{% endblock %}">Contact</a></li>
+      <li><a href="/request-quote/" class="nav-cta {% block nav_quote %}{% endblock %}">Request Quote</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<nav class="mobile-nav" id="mobileNav">
+  <a href="/">Home</a>
+  <a href="/products/">Products</a>
+  <a href="/contact/">Contact</a>
+  <a href="/request-quote/">Request Quote →</a>
+</nav>
+
+<!-- ── PAGE CONTENT ────────────────────────────────────────── -->
+{% block full_content %}
+<div class="container" style="padding-top:48px; padding-bottom:80px;">
+  {% block content %}{% endblock %}
+</div>
+{% endblock %}
+
+<!-- ── FOOTER ──────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Navratna <span>Ply</span> &amp; Decor</span>
+        <p>Your trusted source for premium plywood, laminates, and hardware since years. Quality materials for every project.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/contact/">Contact Us</a></li>
+          <li><a href="/request-quote/">Request Quote</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+919669818894">+91 96698 18894</a></li>
+          <li><a href="https://wa.me/919669818894">WhatsApp Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Navratna Ply and Decor. All rights reserved.</span>
+      <span>Built with care in India 🇮🇳</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── WHATSAPP ─────────────────────────────────────────────── -->
+<a class="whatsapp-btn" href="https://wa.me/919669818894" target="_blank" rel="noopener">
+  Chat on WhatsApp
+</a>
+
+<script>
+  const btn = document.getElementById('hamburger');
+  const nav = document.getElementById('mobileNav');
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('open');
+    nav.classList.toggle('open');
+  });
+</script>
+</body>
+</html>

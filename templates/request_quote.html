@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Request a Quote — Navratna Ply and Decor{% endblock %}
+{% block nav_quote %}active{% endblock %}
+
+{% block full_content %}
+
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a><span>/</span><span>Request Quote</span>
+    </div>
+    <h1>Request a Quote</h1>
+    <p>Fill in the details below and we'll respond with pricing within 24 hours.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="form-grid">
+
+      <div class="form-info">
+        <h2>Tell us what you need</h2>
+        <p>We'll put together a custom quote based on your exact requirements — no obligation, no hassle.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">⚡</div>
+          <div class="contact-detail-text">
+            <strong>Fast turnaround</strong>
+            <span>Quotes within 24 hours</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">💰</div>
+          <div class="contact-detail-text">
+            <strong>Best pricing</strong>
+            <span>Competitive bulk and retail rates</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📦</div>
+          <div class="contact-detail-text">
+            <strong>All materials</strong>
+            <span>Plywood, laminates, hardware & more</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <form method="POST" action="/request-quote/">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group">
+              <label for="id_name">Full Name</label>
+              <input type="text" id="id_name" name="name" placeholder="Your name"
+                value="{{ form.name.value|default:'' }}" required>
+              {% if form.name.errors %}<span class="form-error">{{ form.name.errors|join:", " }}</span>{% endif %}
+            </div>
+            <div class="form-group">
+              <label for="id_phone">Phone</label>
+              <input type="tel" id="id_phone" name="phone" placeholder="+91 00000 00000"
+                value="{{ form.phone.value|default:'' }}" required>
+              {% if form.phone.errors %}<span class="form-error">{{ form.phone.errors|join:", " }}</span>{% endif %}
+            </div>
+          </div>
+          <!-- Product FK dropdown -->
+          <div class="form-group">
+            <label for="id_product">Select Product</label>
+            <select id="id_product" name="product" required>
+              <option value="">Choose a product…</option>
+              {% for product in form.product.field.queryset %}
+              <option value="{{ product.id }}"
+                {% if form.product.value|stringformat:"s" == product.id|stringformat:"s" %}selected{% endif %}>
+                {{ product.name }} — {{ product.category.name }}
+              </option>
+              {% endfor %}
+            </select>
+            {% if form.product.errors %}
+              <span class="form-error">{{ form.product.errors|join:", " }}</span>
+            {% endif %}
+          </div>
+
+          <!-- Message -->
+          <div class="form-group">
+            <label for="id_message">Message</label>
+            <textarea id="id_message" name="message"
+              placeholder="Describe the quantity, size, finish or anything else you need..."
+              required>{{ form.message.value|default:'' }}</textarea>
+            {% if form.message.errors %}
+              <span class="form-error">{{ form.message.errors|join:", " }}</span>
+            {% endif %}
+          </div>
+
+          <button type="submit" class="btn btn-gold form-submit">Submit Quote Request →</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Navratna Ply and Decor — Premium Plywood & Laminates{% endblock %}
+{% block nav_home %}active{% endblock %}
+
+{% block full_content %}
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Premium Quality Materials</p>
+        <h1>The finest <em>ply &amp; decor</em> for every space</h1>
+        <p class="hero-desc">
+          From structural plywood to decorative laminates — we supply builders,
+          architects, and homeowners with materials that last.
+        </p>
+        <div class="hero-actions">
+          <a href="/request-quote/" class="btn btn-gold">Get a Free Quote</a>
+          <a href="#categories" class="btn btn-outline">Browse Products</a>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">500<span>+</span></div>
+          <div class="stat-label">Products in stock</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15<span>+</span></div>
+          <div class="stat-label">Years of experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1k<span>+</span></div>
+          <div class="stat-label">Happy customers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST STRIP ───────────────────────────────────────────── -->
+<div class="strip">
+  <div class="container">
+    <div class="strip-inner">
+      <div class="strip-item">
+        <div class="strip-icon">🏆</div>
+        <div class="strip-text">
+          <strong>Top Brands</strong>
+          <span>Century, Greenply & more</span>
+        </div>
+      </div>
+      <div class="strip-item">
+        <div class="strip-icon">🚚</div>
+        <div class="strip-text">
+          <strong>Fast Delivery</strong>
+          <span>City-wide same day</span>
+        </div>
+      </div>
+      <div class="strip-item">
+        <div class="strip-icon">📐</div>
+        <div class="strip-text">
+          <strong>Custom Cutting</strong>
+          <span>To your exact specs</span>
+        </div>
+      </div>
+      <div class="strip-item">
+        <div class="strip-icon">💬</div>
+        <div class="strip-text">
+          <strong>Expert Advice</strong>
+          <span>Free consultation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CATEGORIES ────────────────────────────────────────────── -->
+<section class="section section-alt" id="categories">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:48px;">
+      <p style="font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">What we offer</p>
+      <h2 class="section-title">Browse by Category</h2>
+      <div class="divider"></div>
+    </div>
+
+    <div class="categories">
+      {% for category in categories %}
+      <a href="/products/?category={{ category.id }}" class="category-card">
+        <div class="category-icon">🪵</div>
+        <h3>{{ category.name }}</h3>
+        <p>{{ category.description|default:"Explore our range of premium products." }}</p>
+        <span class="category-link">View products →</span>
+      </a>
+      {% empty %}
+      <!-- Placeholder cards when no data -->
+      <div class="category-card">
+        <div class="category-icon">🪵</div>
+        <h3>Plywood Sheets</h3>
+        <p>Structural and marine-grade plywood for all applications.</p>
+        <span class="category-link">View products →</span>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">🎨</div>
+        <h3>Laminates</h3>
+        <p>Decorative laminates in hundreds of textures and finishes.</p>
+        <span class="category-link">View products →</span>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">🪟</div>
+        <h3>Veneers</h3>
+        <p>Natural and engineered wood veneers for premium surfaces.</p>
+        <span class="category-link">View products →</span>
+      </div>
+      <div class="category-card">
+        <div class="category-icon">🔩</div>
+        <h3>Hardware</h3>
+        <p>Hinges, handles, and fittings for furniture and interiors.</p>
+        <span class="category-link">View products →</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ── CTA BANNER ────────────────────────────────────────────── -->
+<section style="background:var(--dark);padding:72px 0;">
+  <div class="container" style="text-align:center;">
+    <p style="font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Ready to start?</p>
+    <h2 style="font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.6rem);color:white;margin-bottom:16px;">Need a quote for your project?</h2>
+    <p style="color:rgba(255,255,255,.55);max-width:480px;margin:0 auto 36px;line-height:1.7;">Tell us what you need and we'll get back to you with the best pricing available.</p>
+    <a href="/request-quote/" class="btn btn-gold">Request a Free Quote</a>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ category.name }} — Navratna Ply and Decor{% endblock %}
+
+{% block full_content %}
+
+<!-- ── PAGE HERO ─────────────────────────────────────────────── -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <span>{{ category.name }}</span>
+    </div>
+    <h1>{{ category.name }}</h1>
+    <p>{{ category.description|default:"Explore our complete range." }}</p>
+  </div>
+</section>
+
+<!-- ── PRODUCTS ──────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="products">
+      {% for product in products %}
+      <div class="product-card">
+        <div class="product-img-wrap">
+          {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+          {% else %}
+          <img src="{% static 'image/placeholder.jpg' %}" alt="{{ product.name }}">
+          {% endif %}
+        </div>
+        <div class="product-info">
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.description|truncatechars:90 }}</p>
+          <div class="product-meta">
+            <span class="product-tag">{{ category.name }}</span>
+            <a href="/request-quote/?product={{ product.id }}" class="product-link">Enquire →</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p style="color:var(--grey-600);grid-column:1/-1;">No products found in this category yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}
